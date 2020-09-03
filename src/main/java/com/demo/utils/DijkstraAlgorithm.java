@@ -1,11 +1,13 @@
-package com.demo;
+package com.demo.utils;
 
 import com.demo.model.Graph;
 import com.demo.model.Line;
 import com.demo.model.Vertex;
+import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 public class DijkstraAlgorithm {
@@ -15,38 +17,27 @@ public class DijkstraAlgorithm {
     private Set<Vertex> settledNodes;
     private Set<Vertex> unSettledNodes;
     private Map<Vertex, Vertex> predecessors;
-    private Map<Vertex, Integer> distance;
-
-    public DijkstraAlgorithm(Graph graph, List<Line> lines) {
-        // create a copy of the array so that we can operate on this array
-        this.nodes = new ArrayList<Vertex>(graph.getVertexes());
-        this.lines = new ArrayList<Line>(graph.getLines());
-    }
+    private Map<Vertex, Integer> prices;
 
     public DijkstraAlgorithm(Graph graph) {
     }
 
-    public DijkstraAlgorithm() {
-
-    }
-
-    public void callingDijkstraAlgorithm( Graph graph, Vertex source, Vertex destination ){
-        lines = graph.getLines();
-        nodes = graph.getVertexes();
+    public Pair<LinkedList<Vertex>, Integer> callingDijkstraAlgorithm(Graph graph, Vertex source, Vertex destination ){
+        this.nodes = new ArrayList<Vertex>(graph.getVertexes());
+        this.lines = new ArrayList<Line>(graph.getLines());
         execute(source);
         LinkedList<Vertex> path = getPath(destination);
+        Integer pathPrice = getRoutePrice(path);
+        return new Pair<>(path,pathPrice);
 
-        for (Vertex vertex : path) {
-            System.out.println(vertex);
-        }
     }
 
     public void execute(Vertex source) {
         settledNodes = new HashSet<Vertex>();
         unSettledNodes = new HashSet<Vertex>();
-        distance = new HashMap<Vertex, Integer>();
+        prices = new HashMap<Vertex, Integer>();
         predecessors = new HashMap<Vertex, Vertex>();
-        distance.put(source, 0);
+        prices.put(source, 0);
         unSettledNodes.add(source);
         while (unSettledNodes.size() > 0) {
             Vertex node = getMinimum(unSettledNodes);
@@ -60,9 +51,9 @@ public class DijkstraAlgorithm {
         List<Vertex> adjacentNodes = getNeighbors(node);
         for (Vertex target : adjacentNodes) {
             if (getLowestPrice(target) > getLowestPrice(node)
-                    + getDistance(node, target)) {
-                distance.put(target, getLowestPrice(node)
-                        + getDistance(node, target));
+                    + getPrices(node, target)) {
+                prices.put(target, getLowestPrice(node)
+                        + getPrices(node, target));
                 predecessors.put(target, node);
                 unSettledNodes.add(target);
             }
@@ -70,7 +61,7 @@ public class DijkstraAlgorithm {
 
     }
 
-    private int getDistance(Vertex node, Vertex target) {
+    private int getPrices(Vertex node, Vertex target) {
         for (Line line : lines) {
             if (line.getSource().equals(node)
                     && line.getDestination().equals(target)) {
@@ -110,7 +101,7 @@ public class DijkstraAlgorithm {
     }
 
     private int getLowestPrice(Vertex destination) {
-        Integer d = distance.get(destination);
+        Integer d = prices.get(destination);
         if (d == null) {
             return Integer.MAX_VALUE;
         } else {
@@ -118,10 +109,6 @@ public class DijkstraAlgorithm {
         }
     }
 
-    /*
-     * This method returns the path from the source to the selected target and
-     * NULL if no path exists
-     */
     public LinkedList<Vertex> getPath(Vertex target) {
         LinkedList<Vertex> path = new LinkedList<Vertex>();
         Vertex step = target;
@@ -139,16 +126,14 @@ public class DijkstraAlgorithm {
         return path;
     }
 
-    private static Line getLowestDistanceNode(List<Line>  lines) {
-        Line lowestDistanceNode = null;
-        int lowestDistance = Integer.MAX_VALUE;
-        for (Line node: lines) {
-            int nodeDistance = node.getPrice();
-            if (nodeDistance < lowestDistance) {
-                lowestDistance = nodeDistance;
-                lowestDistanceNode = node;
-            }
+    public int getRoutePrice (LinkedList<Vertex> path){
+        int bestRoutePrice = 0;
+        for(int i = 0 ; i< path.size() - 1; i++){
+            Vertex current = path.get(i);
+            Vertex next = path.get(i+1);
+            Stream<Line> lineRoutes = lines.stream().filter(line -> current.equals(line.getSource()) && next.equals(line.getDestination()));
+            bestRoutePrice += lineRoutes.min(Comparator.comparing(Line::getPrice)).get().getPrice();
         }
-        return lowestDistanceNode;
+        return bestRoutePrice;
     }
 }

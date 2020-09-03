@@ -16,4 +16,8 @@ public class Line {
     public Line() {
 
     }
+
+    public Line(String laneId, Vertex vertex, Vertex vertex1, int duration) {
+
+    }
 }
