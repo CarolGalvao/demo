@@ -1,10 +1,10 @@
 package com.demo.controller;
 
-import com.demo.utils.DijkstraAlgorithm;
-import com.demo.utils.PopulatingTheModels;
 import com.demo.model.Graph;
 import com.demo.model.Vertex;
+import com.demo.utils.PopulatingTheModels;
 import com.demo.utils.RoutesService;
+import com.sun.org.apache.regexp.internal.RE;
 import javafx.util.Pair;
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,7 +50,10 @@ public class ConsoleController {
 
         Pair<LinkedList<Vertex>, Integer> path = routesService.path(graph,source,destination);
 
-        assert destination != null;
+        if(path == null || destination.getCity() == null || path.getKey() == null){
+            System.out.println("there is no way.");
+            return;
+        }
         showResponse(path,destination.getCity());
     }
 

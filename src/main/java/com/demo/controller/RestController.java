@@ -8,6 +8,7 @@ import com.demo.utils.PopulatingTheModels;
 import com.demo.utils.RoutesService;
 import com.sun.istack.internal.NotNull;
 import javafx.util.Pair;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +22,14 @@ public class RestController {
 
     @PostMapping(value = "/")
     public ResponseEntity<?> addRoute(
-            @RequestBody @NotNull PostBody body) throws IOException {
-
-        System.out.println(body.getSource() + body.getDestination() + body.getPrice());
-        ConsoleController definingTravel = new ConsoleController();
+            @RequestBody @NotNull PostBody body) {
         String [] newLine = {body.getSource(), body.getDestination(), body.getPrice()};
+        try{
+            Integer integer = Integer.parseInt(body.getPrice());
+        }catch ( NumberFormatException e){
+            return new ResponseEntity<>("Invalid cost for route", HttpStatus.BAD_REQUEST);
+        }
+
         CsvHandler csvHandler = new CsvHandler();
         csvHandler.writeLine("input-file.txt", newLine);
         return ResponseEntity.ok().build();
@@ -44,7 +48,8 @@ public class RestController {
 
         Pair<LinkedList<Vertex>, Integer> path = routesService.path(graph,sourceVertex,destinationVertex);
 
-        return ResponseEntity.ok(path);
+        String route = routesService.routeBuilder(path,destination).toString();
+        return ResponseEntity.ok(route);
     }
 
 }

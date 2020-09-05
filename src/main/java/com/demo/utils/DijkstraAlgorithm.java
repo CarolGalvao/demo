@@ -3,6 +3,7 @@ package com.demo.utils;
 import com.demo.model.Graph;
 import com.demo.model.Line;
 import com.demo.model.Vertex;
+import com.sun.istack.internal.NotNull;
 import javafx.util.Pair;
 import lombok.AllArgsConstructor;
 
@@ -22,7 +23,7 @@ public class DijkstraAlgorithm {
     public DijkstraAlgorithm(Graph graph) {
     }
 
-    public Pair<LinkedList<Vertex>, Integer> callingDijkstraAlgorithm(Graph graph, Vertex source, Vertex destination ){
+    public Pair<LinkedList<Vertex>, Integer> callingDijkstraAlgorithm(@NotNull Graph graph, Vertex source, Vertex destination ){
         this.nodes = new ArrayList<Vertex>(graph.getVertexes());
         this.lines = new ArrayList<Line>(graph.getLines());
         execute(source);
@@ -127,6 +128,9 @@ public class DijkstraAlgorithm {
     }
 
     public int getRoutePrice (LinkedList<Vertex> path){
+        if(path == null || path.size() == 0){
+            return -1;
+        }
         int bestRoutePrice = 0;
         for(int i = 0 ; i< path.size() - 1; i++){
             Vertex current = path.get(i);

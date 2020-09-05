@@ -17,12 +17,16 @@ public class PopulatingTheModels {
 
     public void addGraphEntry(String source, String destination, String price){
         if(isValidEntry(source, destination, price)) {
-            Line line = new Line();
-            addSourceLine(line, source);
-            addDestinationLine(line, destination);
-            line.setPrice(Integer.parseInt(price));
-            lines.add(line);
-            graph.setLines(lines);
+            try{
+                Line line = new Line();
+                addSourceLine(line, source);
+                addDestinationLine(line, destination);
+                line.setPrice(Integer.parseInt(price));
+                lines.add(line);
+                graph.setLines(lines);
+            }catch (Exception e){
+                log.error("Invalid line");
+            }
         }else{
             log.info("Some line in the csv file has invalid value");
         }
