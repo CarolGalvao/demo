@@ -1,10 +1,9 @@
 package com.demo.controller;
 
+import com.demo.business.PopulatingTheModels;
+import com.demo.business.RoutesService;
 import com.demo.model.Graph;
 import com.demo.model.Vertex;
-import com.demo.utils.PopulatingTheModels;
-import com.demo.utils.RoutesService;
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.util.Pair;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,11 +13,10 @@ import java.util.Scanner;
 @Slf4j
 public class ConsoleController {
 
-    public void choseRoute(){
+    public void callConsoleController(String nameFile){
         RoutesService routesService = new RoutesService();
-        Graph graph = routesService.graph("input-file.txt");
+        Graph graph = routesService.graph(nameFile);
         Scanner sc = new Scanner(System.in);
-
         wantToInsertRoute(sc, graph, routesService);
     }
 

@@ -4,14 +4,22 @@ import com.demo.controller.ConsoleController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Properties;
+import java.util.Scanner;
+
 @SpringBootApplication
 public class BaclemdApplication {
 
 	public static void main(String[] args){
-		SpringApplication.run(BaclemdApplication.class, args);
-		ConsoleController definingTravel = new ConsoleController();
-		definingTravel.choseRoute();
-
+		ConsoleController console = new ConsoleController();
+		SpringApplication sa = new SpringApplication(BaclemdApplication.class);
+		Properties properties = new Properties();
+		Scanner sc = new Scanner(System.in);
+		String fileInput = sc.next();
+		properties.setProperty("fileName", fileInput);
+		sa.setDefaultProperties(properties);
+		sa.run(args);
+		console.callConsoleController(fileInput);
 	}
 
 

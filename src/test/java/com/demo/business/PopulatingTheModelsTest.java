@@ -1,4 +1,4 @@
-package com.demo.utils;
+package com.demo.business;
 
 import com.demo.model.Vertex;
 import junitparams.JUnitParamsRunner;

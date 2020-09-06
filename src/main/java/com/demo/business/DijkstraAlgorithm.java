@@ -1,4 +1,4 @@
-package com.demo.utils;
+package com.demo.business;
 
 import com.demo.model.Graph;
 import com.demo.model.Line;
@@ -6,6 +6,7 @@ import com.demo.model.Vertex;
 import com.sun.istack.internal.NotNull;
 import javafx.util.Pair;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Stream;

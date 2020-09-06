@@ -1,8 +1,10 @@
-package com.demo.utils;
+package com.demo.business;
 
 import com.demo.model.Graph;
 import com.demo.model.Vertex;
+import com.demo.response.Route;
 import javafx.util.Pair;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 
@@ -23,11 +25,10 @@ public class RoutesService {
         return dijkstraAlgorithm.callingDijkstraAlgorithm(graph, source, destination);
     }
 
-    public StringBuilder routeBuilder (Pair<LinkedList<Vertex>, Integer>  path, String destination){
+    public Route routeBuilder (Pair<LinkedList<Vertex>, Integer>  path, String destination){
         StringBuilder route = new StringBuilder();
         if(path == null || path.getKey() == null){
-            route.append("There is no path");
-            return route;
+            return new Route("There is no path");
         }
         route.append("Route: ");
         for (Vertex vertex : path.getKey()) {
@@ -38,6 +39,7 @@ public class RoutesService {
                 route.append("-");
             }
         }
-        return route;
+        return Route.builder().routeResponse(route.toString()).build();
+
     }
 }
