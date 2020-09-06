@@ -8,13 +8,14 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
-@Component
 public class CsvHandler {
 
     PopulatingTheModels populating = new PopulatingTheModels();

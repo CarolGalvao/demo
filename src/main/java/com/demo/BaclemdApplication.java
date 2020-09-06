@@ -15,6 +15,7 @@ public class BaclemdApplication {
 		SpringApplication sa = new SpringApplication(BaclemdApplication.class);
 		Properties properties = new Properties();
 		Scanner sc = new Scanner(System.in);
+		System.out.print("File name:");
 		String fileInput = sc.next();
 		properties.setProperty("fileName", fileInput);
 		sa.setDefaultProperties(properties);

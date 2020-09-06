@@ -1,6 +1,8 @@
 # demo
 
-  Como executar a aplicação
+ * Como executar a aplicação
+ -Na pasta do projeto executar: mvn spring-boot:ru e quando pedir o "File name:" inserir o nome ou o path para o arquivo
+ 
  * Estrutura dos arquivos/pacotes
  - business: Contém as classes responsáveis pela lógica do projeto.
  - controller: Possui as classes resposáveis pela interação do usuário com a api, como permitir adicionar uma nova rota ou buscar a melhor rota entre dois pontos.

@@ -1,0 +1,14 @@
+/home/cgalvao/Work/demo/src/main/java/com/demo/model/Graph.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/business/RoutesService.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/BaclemdApplication.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/business/DijkstraAlgorithm.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/business/CsvHandler.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/controller/ConsoleController.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/business/PopulatingTheModels.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/response/Route.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/model/Vertex.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/response/WrongEntryException.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/model/PostBody.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/controller/RestController.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/model/Line.java
+/home/cgalvao/Work/demo/src/main/java/com/demo/business/ScannerHandler.java

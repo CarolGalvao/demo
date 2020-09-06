@@ -4,10 +4,11 @@ import com.demo.model.Graph;
 import com.demo.model.Vertex;
 import com.demo.response.Route;
 import javafx.util.Pair;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 
+@Service
 public class RoutesService {
 
     public Graph graph(String fileName){

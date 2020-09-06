@@ -1,16 +1,15 @@
 package com.demo.controller;
 
-import com.demo.model.Graph;
-import com.demo.model.PostBody;
-import com.demo.model.Vertex;
 import com.demo.business.CsvHandler;
 import com.demo.business.PopulatingTheModels;
 import com.demo.business.RoutesService;
+import com.demo.model.Graph;
+import com.demo.model.PostBody;
+import com.demo.model.Vertex;
 import com.demo.response.Route;
 import com.demo.response.WrongEntryException;
 import com.sun.istack.internal.NotNull;
 import javafx.util.Pair;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

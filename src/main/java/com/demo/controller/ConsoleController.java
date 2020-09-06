@@ -2,16 +2,19 @@ package com.demo.controller;
 
 import com.demo.business.PopulatingTheModels;
 import com.demo.business.RoutesService;
+import com.demo.business.ScannerHandler;
 import com.demo.model.Graph;
 import com.demo.model.Vertex;
 import javafx.util.Pair;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.Scanner;
 
 @Slf4j
-public class ConsoleController {
+@Component
+public class ConsoleController { ;
 
     public void callConsoleController(String nameFile){
         RoutesService routesService = new RoutesService();
@@ -30,8 +33,9 @@ public class ConsoleController {
                     System.out.println("OK, If you want you can use the RestController");
                     wantInsert=false;
                 }else{
-                    String [] input = scanningRoute(sc);
-                    Pair<Boolean, String []>  isValid = isValidInput(input, graph);
+                    ScannerHandler scannerHandler = new ScannerHandler();
+                    String [] input = scannerHandler.scanningRoute(sc);
+                    Pair<Boolean, String []>  isValid = scannerHandler.isValidInput(input, graph);
                     if(isValid.getKey().equals(true)){
                         dealingWithTheRoute(isValid.getValue(), graph, routesService);
                     }else{System.out.println("invalid route, try again");}
@@ -55,18 +59,6 @@ public class ConsoleController {
         showResponse(path,destination.getCity());
     }
 
-    public Pair<Boolean, String []> isValidInput(String [] input, Graph graph){
-        if(input!= null && input.length == 2 ){
-            PopulatingTheModels populating = new PopulatingTheModels();
-            input[0] = input[0].toUpperCase();
-            input[1] = input[1].toUpperCase();
-            if(populating.findCity(graph, input[0]) != null && populating.findCity(graph, input[1]) != null){
-                return new Pair<>(true, input);
-            }
-        }
-        return new Pair<>(false, null);
-    }
-
     public void showResponse( Pair<LinkedList<Vertex>, Integer>  path, String destination){
         System.out.print("best route: ");
         for (Vertex vertex : path.getKey()) {
@@ -78,11 +70,5 @@ public class ConsoleController {
                 System.out.print("-");
             }
         }
-    }
-
-    public String [] scanningRoute(Scanner sc){
-        System.out.print("please enter the route: ");
-        String trip = sc.next();
-        return trip.split("-");
     }
 }
