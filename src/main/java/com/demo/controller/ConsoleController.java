@@ -7,14 +7,20 @@ import com.demo.model.Graph;
 import com.demo.model.Vertex;
 import javafx.util.Pair;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Controller;
 
 import java.util.LinkedList;
 import java.util.Scanner;
 
 @Slf4j
-@Component
-public class ConsoleController { ;
+@Controller
+@Configurable
+public class ConsoleController {
+
+    @Autowired
+    ScannerHandler scannerHandler;
 
     public void callConsoleController(String nameFile){
         RoutesService routesService = new RoutesService();
@@ -33,7 +39,6 @@ public class ConsoleController { ;
                     System.out.println("OK, If you want you can use the RestController");
                     wantInsert=false;
                 }else{
-                    ScannerHandler scannerHandler = new ScannerHandler();
                     String [] input = scannerHandler.scanningRoute(sc);
                     Pair<Boolean, String []>  isValid = scannerHandler.isValidInput(input, graph);
                     if(isValid.getKey().equals(true)){
